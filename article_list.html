@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+ 
+{% block content %}
+{% for article in context %}
+ 
+ 
+<a href="{% url 'article-detail' slug=article.slug %}">{{ article.article_title }}</a>
+ 
+{{ article.article_text }}
+ 
+{{ article.aritlce_published_date }}
+ 
+ 
+{% endfor %}
+{% endblock %}
+ 
+{% block paginator %}
+ 
+<nav aria-label="Page navigation example mt-3 justify-content-center">
+    <ul class="pagination">
+        {% if context.has_previous %}
+           <li class="page-item"><a class="page-link" href="?page={{ context.previous_page_number }}">Назад</a></li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Назад</a>
+            </li>
+        {% endif %}
+ 
+        <li class="page-item"><li class="page-link text-dark" href="#">Страница {{ context.number }} из {{ context.paginator.num_pages }}</li>
+        {% if context.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ context.next_page_number }}">Вперед</a></li>
+        {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Вперед</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+    <a href="create/">Create Article</a>
+{% endblock %}
